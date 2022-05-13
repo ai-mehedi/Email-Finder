@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Email Checker</title>
+         <!-- Compiled and minified CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+    </head>
+    <body>
+
+        <style>
+            body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+}
+
+
+.animation-container {
+    position: absolute;
+    top: 25vh;
+    left: 0;
+    right: 0;
+    bottom: 25vh;
+    z-index: -41;
+  }
+  
+  .animation-container span {
+    position: absolute;
+    color: whitesmoke;
+    display: block;
+    font-size: 18px;
+    font-family: 'Helvetica';
+    text-shadow: 0 0 1px white;
+    user-select: none;
+    pointer-events: none;
+    cursor: default;
+    z-index: -41;
+    opacity: 0;
+    top: 0;
+    will-change: transform, opacity;
+    animation-timing-function: ease-out;
+    animation-name: move;
+  }
+  
+  @keyframes move {
+    0% {
+      opacity: 0;
+      top: 100%;
+    }
+    25% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+      transform: none;
+    }
+  }
+        </style>
+        
+<div class="container">
+        
+    <div class="col s12 m7">
+        <h2 class="header"><img src="https://microsofters.net/frontend/assets/img/logo.png" width="400"></h2>
+        <div class="card horizontal" style="background:ffffff9e !important;">
+          
+          <div class="card-stacked">
+            <div class="card-content">
+                <select class="browser-default"   name="switch">
+                    <option value="1" disabled selected>Choose your option</option>
+                    <option value="1">Headless Yes</option>
+                    <option value="0">Headless No</option> 
+                  </select>
+            </div>
+            <div class="card-action">
+              <a class="btn waves-effect  indigo darken-3" type="button" onclick="start_button()" href="#">Start</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- <label>Please Select</label>
+    <select class="browser-default"   name="switch">
+      <option value="1" disabled selected>Choose your option</option>
+      <option value="1">Headless Yes</option>
+      <option value="0">Headless No</option> 
+    </select> -->
+
+      <!-- <button class="btn waves-effect  indigo darken-3" type="button" onclick="start_button()">Start</button> -->
+        <!-- <select name="switch">
+            <option value="1">Headless Yes</option>
+            <option value="0">Headless No</option>
+        </select>
+        <button type="button" onclick="start_button()">Start</button> -->
+
+        <ul id="all_logs">
+
+        </ul>
+    </div>
+    </body>
+
+
+    <script>
+        const { remote, ipcRenderer } = require('electron');
+        function start_button(){
+            var switch_btn = document.querySelector('select[name="switch"]').value;
+            ipcRenderer.send('action_send',{action:switch_btn });
+        }
+
+        ipcRenderer.on('logger',function(evt,result){
+            // document.getElementById('all_logs').insertAdjacentHTML("beforeend",`<li>${result.message}</li>`)
+            M.toast({html: `${result.message}`})
+
+        });
+
+
+
+
+        
+        'use strict';
+
+var app = {
+
+  chars: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'],
+
+  init: function () {
+    app.container = document.createElement('div');
+    app.container.className = 'animation-container';
+    document.body.appendChild(app.container);
+    window.setInterval(app.add, 100);
+  },
+
+  add: function () {
+    var element = document.createElement('span');
+    app.container.appendChild(element);
+    app.animate(element);
+  },
+
+  animate: function (element) {
+    var character = app.chars[Math.floor(Math.random() * app.chars.length)];
+    var duration = Math.floor(Math.random() * 15) + 1;
+    var offset = Math.floor(Math.random() * (50 - duration * 2)) + 3;
+    var size = 10 + (15 - duration);
+    element.style.cssText = 'right:'+offset+'vw; font-size:'+size+'px;animation-duration:'+duration+'s';
+    element.innerHTML = character;
+    window.setTimeout(app.remove, duration * 1000, element);
+  },
+
+  remove: function (element) {
+    element.parentNode.removeChild(element);
+  },
+
+};
+
+document.addEventListener('DOMContentLoaded', app.init);
+    </script>
+</html>

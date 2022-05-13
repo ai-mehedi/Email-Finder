@@ -1,0 +1,125 @@
+:root {
+    --background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
+    --gray: #34495e;
+    --darkgray: #2c3e50;
+}
+
+.sid {
+    /* Reset Select */
+    appearance: none;
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+    /* Personalize */
+    flex: 1;
+    padding: 0 1em;
+    color: #fff;
+    background-color: var(--darkgray);
+    background-image: none;
+    cursor: pointer;
+}
+
+/* Remove IE arrow */
+
+/* Custom Select wrapper */
+.select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    border-radius: .25em;
+    overflow: hidden;
+}
+
+/* Arrow */
+.copy {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
+    background-color: #707172;
+    transition: .25s all ease;
+
+    color: #fff;
+}
+
+/* Transition */
+.copy:hover::after {
+    color: #85a5c5;
+}
+
+/* Other styles*/
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 35vh;
+    overflow: hidden;
+  
+}
+
+h1 {
+    margin: 0 0 0.25em;
+}
+
+a {
+    font-weight: bold;
+    color: var(--gray);
+    text-decoration: none;
+    padding: .25em;
+    border-radius: .25em;
+    background: white;
+}
+
+.center {
+    margin: 35vh;
+}
+
+
+.animation-container {
+    position: absolute;
+    top: 25vh;
+    left: 0;
+    right: 0;
+    bottom: 25vh;
+    z-index: -41;
+  }
+  
+  .animation-container span {
+    position: absolute;
+    color: whitesmoke;
+    display: block;
+    font-size: 18px;
+    font-family: 'Helvetica';
+    text-shadow: 0 0 1px white;
+    user-select: none;
+    pointer-events: none;
+    cursor: default;
+    z-index: -41;
+    opacity: 0;
+    top: 0;
+    will-change: transform, opacity;
+    animation-timing-function: ease-out;
+    animation-name: move;
+  }
+  
+  @keyframes move {
+    0% {
+      opacity: 0;
+      top: 100%;
+    }
+    25% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+      transform: none;
+    }
+  }
